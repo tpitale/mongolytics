@@ -17,8 +17,7 @@ spec = Gem::Specification.new do |s|
   s.email            = 'user@example.com'
   s.homepage         = 'http://my-site.net'
   s.files            = %w(README.rdoc Rakefile) + Dir.glob("{lib,test}/**/*")
-  # s.executables    = ['mongolytics']
-  
+
   # s.add_dependency('gem_name', '~> 0.0.1')
 end
 
@@ -38,3 +37,17 @@ task :github do
   File.open(file, 'w') {|f| f << spec.to_ruby }
   puts "Created gemspec: #{file}"
 end
+
+begin
+  require 'rcov/rcovtask'
+  
+  desc "Generate RCov coverage report"
+  Rcov::RcovTask.new(:rcov) do |t|
+    t.test_files = FileList['test/**/*_test.rb']
+    t.rcov_opts << "-x lib/mongolytics.rb -x lib/mongolytics/version.rb"
+  end
+rescue LoadError
+  nil
+end
+
+task :default => 'test'

@@ -1,20 +1,20 @@
-= Mongolytics
+# Mongolytics
 
-== Description
+## Description
 
 Describe your gem here ... 
 
-== Installation
+## Installation
 
     sudo gem install mongolytics
 
-== Usage
+## Usage
 
     require 'mongolytics'
 
-== License
+## License
 
-Copyright (c) <year> <copyright holders>
+Copyright (c) 2009 Tony Pitale
 
 Permission is hereby granted, free of charge, to any person
 obtaining a copy of this software and associated documentation
