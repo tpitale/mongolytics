@@ -12,13 +12,13 @@ spec = Gem::Specification.new do |s|
   s.has_rdoc         = true
   s.extra_rdoc_files = %w(README.rdoc)
   s.rdoc_options     = %w(--main README.rdoc)
-  s.summary          = "This gem does ... "
-  s.author           = 'First Last'
-  s.email            = 'user@example.com'
-  s.homepage         = 'http://my-site.net'
+  s.summary          = "Provide basic analytics tracking, server-side, using mongodb"
+  s.author           = 'Tony Pitale'
+  s.email            = 'tpitale@gmail.com'
+  s.homepage         = 'http://t.pitale.com'
   s.files            = %w(README.rdoc Rakefile) + Dir.glob("{lib,test}/**/*")
 
-  # s.add_dependency('gem_name', '~> 0.0.1')
+  s.add_dependency('mongomapper', '>= 0.3.1')
 end
 
 Rake::GemPackageTask.new(spec) do |pkg|
@@ -44,10 +44,8 @@ begin
   desc "Generate RCov coverage report"
   Rcov::RcovTask.new(:rcov) do |t|
     t.test_files = FileList['test/**/*_test.rb']
-    t.rcov_opts << "-x lib/mongolytics.rb -x lib/mongolytics/version.rb"
+    t.rcov_opts << "-x lib/mongolytics/version.rb"
   end
 rescue LoadError
   nil
 end
-
-task :default => 'test'

@@ -7,7 +7,6 @@ module Mongolytics
     
     def self.to_s # :nodoc:
       [MAJOR, MINOR, TINY].join('.')
-    end
-    
+    end    
   end
 end
