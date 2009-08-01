@@ -9,14 +9,12 @@ task :default => :test
 spec = Gem::Specification.new do |s|
   s.name             = 'mongolytics'
   s.version          = Mongolytics::Version.to_s
-  s.has_rdoc         = true
-  s.extra_rdoc_files = %w(README.rdoc)
-  s.rdoc_options     = %w(--main README.rdoc)
+  s.has_rdoc         = false
   s.summary          = "Provide basic analytics tracking, server-side, using mongodb"
   s.author           = 'Tony Pitale'
   s.email            = 'tpitale@gmail.com'
   s.homepage         = 'http://t.pitale.com'
-  s.files            = %w(README.rdoc Rakefile) + Dir.glob("{lib,test}/**/*")
+  s.files            = %w(README.md Rakefile) + Dir.glob("{lib,test}/**/*")
 
   s.add_dependency('mongomapper', '>= 0.3.1')
 end

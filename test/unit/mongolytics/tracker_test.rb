@@ -32,7 +32,7 @@ module Mongolytics
       should "create a statistic with controller, action, and path" do
         Statistic.expects(:create).with(:controller => 'faux', :action => 'show', :path => '/users/1').returns(true)
         controller = FauxController.new
-        controller.stubs(:request_uri).returns(stub(:path => '/users/1'))
+        controller.stubs(:request).returns(stub(:path => '/users/1'))
         controller.stubs(:params).returns({:controller => 'faux', :action => 'show'})
         assert controller.track_stat
       end

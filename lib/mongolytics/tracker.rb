@@ -7,7 +7,7 @@ module Mongolytics
     def track_stat
       controller = params[:controller].to_s
       action = params[:action].to_s
-      path = request_uri.path
+      path = request.path
 
       Statistic.create(:controller => controller, :action => action, :path => path)
     end
