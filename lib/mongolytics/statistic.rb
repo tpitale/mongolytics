@@ -7,11 +7,11 @@ module Mongolytics
     key :path, String
     
     def self.stats_for_path(path)
-      all(:conditions => {:path => path}).count
+      count({:path => path})
     end
 
     def self.stats_for_keys(controller, action)
-      all(:conditions => {:controller => controller.to_s, :action => action.to_s}).count
+      count({:controller => controller.to_s, :action => action.to_s})
     end
   end
 end
