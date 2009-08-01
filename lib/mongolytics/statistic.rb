@@ -2,9 +2,9 @@ module Mongolytics
   class Statistic
     include MongoMapper::Document
 
-    key :controller, :string, :required => true
-    key :action, :string, :required => true
-    key :path, :string
+    key :controller, String, :required => true
+    key :action, String, :required => true
+    key :path, String
     
     def self.stats_for_path(path)
       find(:conditions => {:path => path}).count
