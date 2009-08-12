@@ -39,13 +39,25 @@ Simple analytics tracking for Rails using the awesomest: MongoDB
     track_change_stats                            # tracks create, update, destroy
     track_stats_for :new, :edit, :show, :destroy  # track any action mix
 
+  If you want to track a custom session variable:
+
+    track_session_key :username           # tracks session[:username] as a String
+    track_session_key :user_id, Integer   # tracks session[:user_id] as an Integer
+
   Later, retrieve stats via (given UsersController is our controller):
 
     # by path, useful for getting per-id stats e.g., /users/1
-    Mongolytics.stats_for_path user_path(@user)  # using the path helper (not url helper)
+    Mongolytics.stats_for_path user_path(@user)               # using the path helper (not url helper)
     
     # by controller and action keys, useful if you want all views of users/show page
-    Mongolytics.stats_for_keys :users, :show    # using the controller and action
+    Mongolytics.stats_for_keys :users, :show                  # using the controller and action
+
+    # by controller/action and session key/value hash
+    Mongolytics.stats_for_keys :users, :show, :user_id => 1   # note: session keys, not request params
+
+  You can always query the Statistics:
+
+    Mongolytics::Statistic.count({:user_id => 1})
 
 ## Motivation
 
