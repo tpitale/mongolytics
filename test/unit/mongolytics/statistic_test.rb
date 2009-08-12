@@ -12,6 +12,16 @@ module Mongolytics
         Statistic.expects(:count).with({:controller => 'users', :action => 'show'}).returns(11211)
         Statistic.stats_for_keys(:users, :show).should == 11211
       end
+
+      should "find count of stats for a given controller/action and session key hash" do
+        Statistic.expects(:count).with({:controller => 'users', :action => 'show', :user_id => 1}).returns(13131)
+        Statistic.stats_for_keys(:users, :show, :user_id => 1).should == 13131
+      end
+
+      should "know of any session keys" do
+        Statistic.key(:extra_key, String)
+        assert_equal ["extra_key"], Statistic.session_keys
+      end
     end
   end
 end

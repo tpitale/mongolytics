@@ -8,7 +8,7 @@ module Mongolytics
     Statistic.stats_for_path(path)
   end
 
-  def self.stats_for_keys(controller, action)
-    Statistic.stats_for_keys(controller, action)
+  def self.stats_for_keys(controller, action, session_key_hash = {})
+    Statistic.stats_for_keys(controller, action, session_key_hash)
   end
 end

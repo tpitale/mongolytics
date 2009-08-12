@@ -26,14 +26,39 @@ module Mongolytics
         FauxController.expects(:after_filter).with(:track_stat, :only => [:create, :update, :destroy])
         FauxController.track_change_stats
       end
+
+      should "add a session key to Statistic" do
+        Statistic.expects(:key).with(:username, String)
+        FauxController.track_session_key :username
+      end
+
+      should "allow override of class type for key added to Statistic" do
+        Statistic.expects(:key).with(:user_id, Integer)
+        FauxController.track_session_key :user_id, Integer        
+      end
     end
 
     context "An instance of a Controller with Tracker mixed-in" do
       should "create a statistic with controller, action, and path" do
-        Statistic.expects(:create).with(:controller => 'faux', :action => 'show', :path => '/users/1').returns(true)
         controller = FauxController.new
+        
         controller.stubs(:request).returns(stub(:path => '/users/1'))
         controller.stubs(:params).returns({:controller => 'faux', :action => 'show'})
+        controller.stubs(:session).returns({})
+
+        Statistic.expects(:create).with(:controller => 'faux', :action => 'show', :path => '/users/1').returns(true)
+        assert controller.track_stat
+      end
+
+      should "create a statistic with controller, action, path, and user_id" do
+        FauxController.track_session_key :user_id, Integer
+        controller = FauxController.new
+
+        controller.stubs(:request).returns(stub(:path => '/users/1'))
+        controller.stubs(:params).returns({:controller => 'faux', :action => 'show'})
+        controller.stubs(:session).returns({:user_id => 1})
+
+        Statistic.expects(:create).with(:controller => 'faux', :action => 'show', :path => '/users/1', :user_id => 1).returns(true)
         assert controller.track_stat
       end
     end

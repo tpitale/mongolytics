@@ -5,11 +5,18 @@ module Mongolytics
     end
 
     def track_stat
-      controller = params[:controller].to_s
-      action = params[:action].to_s
-      path = request.path
+      options = {
+        :controller => params[:controller].to_s,
+        :action => params[:action].to_s,
+        :path => request.path
+      }
 
-      Statistic.create(:controller => controller, :action => action, :path => path)
+      session_options = Statistic.session_keys.inject({}) do |hash, key|
+        hash[key.to_sym] = session[key.to_sym] if session.has_key?(key.to_sym)
+        hash
+      end
+
+      Statistic.create(options.merge(session_options))
     end
 
     module ClassMethods
@@ -27,6 +34,10 @@ module Mongolytics
 
       def track_change_stats
         track_stats_for :create, :update, :destroy
+      end
+
+      def track_session_key(key, type = String)
+        Statistic.key(key, type)
       end
     end
   end
