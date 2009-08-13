@@ -37,7 +37,7 @@ Simple analytics tracking for Rails using the awesomest: MongoDB
     track_all_stats                               # tracks all actions
     track_view_stats                              # tracks index, show
     track_change_stats                            # tracks create, update, destroy
-    track_stats_for :new, :edit, :show, :destroy  # track any action mix
+    track_stats_for :new, :edit, :show, :destroy  # track any action mix, other actions
 
   If you want to track a custom session variable:
 
