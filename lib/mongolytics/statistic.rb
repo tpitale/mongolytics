@@ -6,8 +6,8 @@ module Mongolytics
     key :action, String, :required => true
     key :path, String
 
-    many :sessions
-    many :params
+    many :sessions, :class_name => 'Mongolytics::Session'
+    many :params, :class_name => 'Mongolytics::Param'
 
     def self.stats_for_path(path)
       count({:path => path})
