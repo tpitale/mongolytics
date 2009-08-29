@@ -11,12 +11,7 @@ module Mongolytics
         :path => request.path
       }
 
-      session_options = Statistic.session_keys.inject({}) do |hash, key|
-        hash[key.to_sym] = session[key.to_sym] if session.has_key?(key.to_sym)
-        hash
-      end
-
-      Statistic.create(options.merge(session_options))
+      Statistic.create(options.merge(:sessions => [session], :params => [params]))
     end
 
     module ClassMethods
@@ -37,7 +32,11 @@ module Mongolytics
       end
 
       def track_session_key(key, type = String)
-        Statistic.key(key, type)
+        Session.key(key, type)
+      end
+
+      def track_params_key(key, type = String)
+        Param.key(key, type)
       end
     end
   end

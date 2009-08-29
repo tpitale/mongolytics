@@ -2,16 +2,16 @@
 
 Gem::Specification.new do |s|
   s.name = %q{mongolytics}
-  s.version = "0.1.0"
+  s.version = "0.2.0"
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["Tony Pitale"]
-  s.date = %q{2009-08-12}
+  s.date = %q{2009-08-29}
   s.email = %q{tpitale@gmail.com}
-  s.files = ["README.md", "Rakefile", "lib/mongolytics", "lib/mongolytics/statistic.rb", "lib/mongolytics/tracker.rb", "lib/mongolytics/version.rb", "lib/mongolytics.rb", "test/test_helper.rb", "test/unit", "test/unit/mongolytics", "test/unit/mongolytics/statistic_test.rb", "test/unit/mongolytics/tracker_test.rb", "test/unit/mongolytics_test.rb"]
+  s.files = ["README.md", "Rakefile", "lib/mongolytics", "lib/mongolytics/param.rb", "lib/mongolytics/session.rb", "lib/mongolytics/statistic.rb", "lib/mongolytics/tracker.rb", "lib/mongolytics/version.rb", "lib/mongolytics.rb", "test/test_helper.rb", "test/unit", "test/unit/mongolytics", "test/unit/mongolytics/statistic_test.rb", "test/unit/mongolytics/tracker_test.rb", "test/unit/mongolytics_test.rb"]
   s.homepage = %q{http://t.pitale.com}
   s.require_paths = ["lib"]
-  s.rubygems_version = %q{1.3.4}
+  s.rubygems_version = %q{1.3.5}
   s.summary = %q{Provide basic analytics tracking, server-side, using mongodb}
 
   if s.respond_to? :specification_version then

@@ -27,14 +27,24 @@ module Mongolytics
         FauxController.track_change_stats
       end
 
-      should "add a session key to Statistic" do
-        Statistic.expects(:key).with(:username, String)
+      should "add a session key to Session" do
+        Session.expects(:key).with(:username, String)
         FauxController.track_session_key :username
       end
 
-      should "allow override of class type for key added to Statistic" do
-        Statistic.expects(:key).with(:user_id, Integer)
+      should "allow override of class type for a session key added to Session" do
+        Session.expects(:key).with(:user_id, Integer)
         FauxController.track_session_key :user_id, Integer        
+      end
+
+      should "add a params key to Session" do
+        Param.expects(:key).with(:username, String)
+        FauxController.track_params_key :username
+      end
+
+      should "allow override of class type for a params key added to Session" do
+        Param.expects(:key).with(:user_id, Integer)
+        FauxController.track_params_key :user_id, Integer
       end
     end
 
@@ -42,23 +52,21 @@ module Mongolytics
       should "create a statistic with controller, action, and path" do
         controller = FauxController.new
         
-        controller.stubs(:request).returns(stub(:path => '/users/1'))
-        controller.stubs(:params).returns({:controller => 'faux', :action => 'show'})
-        controller.stubs(:session).returns({})
-
-        Statistic.expects(:create).with(:controller => 'faux', :action => 'show', :path => '/users/1').returns(true)
-        assert controller.track_stat
-      end
-
-      should "create a statistic with controller, action, path, and user_id" do
-        FauxController.track_session_key :user_id, Integer
-        controller = FauxController.new
+        params = {:controller => 'faux', :action => 'show'}
+        session = {}
 
         controller.stubs(:request).returns(stub(:path => '/users/1'))
-        controller.stubs(:params).returns({:controller => 'faux', :action => 'show'})
-        controller.stubs(:session).returns({:user_id => 1})
+        controller.stubs(:params).returns(params)
+        controller.stubs(:session).returns(session)
 
-        Statistic.expects(:create).with(:controller => 'faux', :action => 'show', :path => '/users/1', :user_id => 1).returns(true)
+        Statistic.expects(:create).with({
+          :controller => 'faux',
+          :action => 'show',
+          :path => '/users/1',
+          :params => [params],
+          :sessions => [session]
+        }).returns(true)
+
         assert controller.track_stat
       end
     end

@@ -1,6 +1,8 @@
 $:.unshift File.dirname(__FILE__)
 
 require 'mongolytics/statistic'
+require 'mongolytics/session'
+require 'mongolytics/param'
 require 'mongolytics/tracker'
 
 module Mongolytics
@@ -8,7 +10,7 @@ module Mongolytics
     Statistic.stats_for_path(path)
   end
 
-  def self.stats_for_keys(controller, action, session_key_hash = {})
-    Statistic.stats_for_keys(controller, action, session_key_hash)
+  def self.stats_for_keys(controller, action)
+    Statistic.stats_for_keys(controller, action)
   end
 end

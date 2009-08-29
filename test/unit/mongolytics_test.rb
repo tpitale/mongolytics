@@ -8,13 +8,8 @@ class MongolyticsTest < Test::Unit::TestCase
     end
 
     should "delegate stats_for_keys to Statistic" do
-      Mongolytics::Statistic.expects(:stats_for_keys).with(:users, :show, {})
+      Mongolytics::Statistic.expects(:stats_for_keys).with(:users, :show)
       Mongolytics.stats_for_keys(:users, :show)
-    end
-
-    should "delegate stats_for_keys with session options to Statistic" do
-      Mongolytics::Statistic.expects(:stats_for_keys).with(:users, :show, :user_id => 1)
-      Mongolytics.stats_for_keys(:users, :show, :user_id => 1)
     end
   end
 end
